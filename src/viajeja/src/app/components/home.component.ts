@@ -1,0 +1,12 @@
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TravelService } from '../services/travel.service';
+import { TravelPackage } from '../models/package.model';
+@Component({ standalone: true, imports: [CommonModule, RouterLink], template: `
+<section class="hero"><div class="hero-image"></div><div class="container hero-content"><span class="eyebrow light">SUA PRÓXIMA HISTÓRIA COMEÇA AQUI</span><h1>O mundo espera<br>por <em>você.</em></h1><p>Encontre destinos incríveis, descubra novas culturas e transforme seus planos em viagens inesquecíveis.</p><a routerLink="/viagens" class="button button-primary">Explorar destinos <span>↗</span></a><div class="hero-note"><span class="note-line"></span><span>Viaje mais. Viva mais.</span></div></div><div class="hero-index">01 <span>—</span> 04</div></section>
+<section class="trust-strip"><div class="container trust-items"><div><strong>+120</strong><span>destinos para descobrir</span></div><div><strong>100%</strong><span>experiências selecionadas</span></div><div><strong>24h</strong><span>para começar a planejar</span></div></div></section>
+<section class="section container"><div class="section-heading"><div><span class="eyebrow">ESCOLHAS PARA VOCÊ</span><h2>Destinos que dão <em>vontade de ir.</em></h2></div><a routerLink="/viagens" class="text-link">Ver todos os pacotes <span>↗</span></a></div><div class="package-grid">@for (item of featured; track item.id) {<article class="package-card"><a [routerLink]="['/viagens', item.id]" class="card-image"><img [src]="item.image" [alt]="item.destination" loading="lazy"><span class="card-tag">{{item.category}}</span></a><div class="card-body"><span class="card-location">{{item.destination}} · {{item.country}}</span><h3>{{item.title}}</h3><div class="card-bottom"><span>{{item.duration}}</span><strong>A partir de {{item.price | currency:'BRL':'symbol':'1.0-0':'pt-BR'}}</strong></div></div></article>}</div></section>
+<section class="inspiration"><div class="container inspiration-inner"><div><span class="eyebrow light">MENOS ROTINA, MAIS MUNDO</span><h2>Não é só sobre<br>chegar. É sobre <em>viver.</em></h2></div><a routerLink="/viagens" class="button button-outline">Encontre sua próxima viagem ↗</a></div></section>
+`, styles: [] })
+export class HomeComponent { featured: TravelPackage[] = this.travel.getMockPackages().filter((item) => item.featured).slice(0, 3); constructor(private travel: TravelService) {} }
